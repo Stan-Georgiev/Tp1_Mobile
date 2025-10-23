@@ -4,7 +4,7 @@ import org.junit.Test;
 import java.util.List;
 import static org.junit.Assert.*;
 
-public class TestMouvement {
+public class TestMouvementPion {
 
     @Test
     public void testDeplacementSimpleBlanc() {

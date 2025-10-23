@@ -11,7 +11,7 @@ public class TestDamier extends TestCase {
     public void testDamier() {
         Damier d = new Damier();
 
-        Assert.assertEquals(50, d.getNombrePions());
+        assertEquals(50, d.getNombrePions());
         Pion pion1 = new Pion(Couleur.Noir);
 
         d.ajouterPion(38, pion1);
@@ -44,8 +44,8 @@ public class TestDamier extends TestCase {
         d.initialiser();
 
         String affichage = AfficherDamier.generer(d).trim();
-        Assert.assertTrue(affichage.contains("P")); // Contient des noirs
-        Assert.assertTrue(affichage.contains("p")); // Contient des blancs
+        assertTrue(affichage.contains("P")); // Contient des noirs
+        assertTrue(affichage.contains("p")); // Contient des blancs
 
         System.out.println(affichage);
     }
