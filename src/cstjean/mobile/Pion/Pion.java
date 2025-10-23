@@ -24,11 +24,15 @@ public class Pion {
         this.couleur = Couleur.Blanc;
     }
 
+    /** Fonction getter permettant d'obtenir la couleur du pion.
+     *
+     * @return couleur du pion
+     */
     public Couleur getCouleur() {
         return this.couleur;
     }
 
-    /** Methode qui affiche les pion en correspondance avec leur couleur.
+    /** Méthode qui affiche les pions en correspondance avec leur couleur.
      *
      * @return cela retourne la representation d'un pion.
      */

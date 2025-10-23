@@ -10,6 +10,10 @@ public class Dame extends Pion {
         super(couleur);
     }
 
+    /** Méthode qui affiche les dames en correspondance avec leur couleur.
+     *
+     * @return cela retourne la representation d'une dame.
+     */
     @Override
     public char getRepresentation() {
         if (getCouleur() == Couleur.Blanc) {

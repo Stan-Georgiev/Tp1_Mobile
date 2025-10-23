@@ -26,8 +26,8 @@ public class MouvementPion {
     /**
      * Retourne la liste des déplacements possibles d’un pion.
      * Le damier est un tableau 10x10 contenant :
-     *  - 'B' pour un pion blanc
-     *  - 'N' pour un pion noir
+     *  - 'p' pour un pion blanc
+     *  - 'P' pour un pion noir
      *  - null pour une case vide
      */
     public static List<Position> getDeplacementsPossibles(int ligne, int colonne, boolean estBlanc, Object[][] damier) {
