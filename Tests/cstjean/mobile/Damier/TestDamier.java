@@ -1,6 +1,7 @@
 package cstjean.mobile.Damier;
 
 import cstjean.mobile.Pion.Couleur;
+import cstjean.mobile.Pion.Dame;
 import cstjean.mobile.Pion.Pion;
 import junit.framework.TestCase;
 import org.junit.Assert;
@@ -21,6 +22,7 @@ public class TestDamier extends TestCase {
 
         String affichage = AfficherDamier.generer(d);
         System.out.println(affichage);
+        System.out.println();
     }
 
     /** Un test qui verifie si le damier est initialiser avec 40 pions. **/
@@ -48,5 +50,21 @@ public class TestDamier extends TestCase {
         assertTrue(affichage.contains("p")); // Contient des blancs
 
         System.out.println(affichage);
+        System.out.println();
+    }
+    public void testCheckPromotion(){
+        Damier d = new Damier();
+        d.initialiser();
+
+
+        d.ajouterPion(3, new Pion(Couleur.Blanc));
+        String affichage = AfficherDamier.generer(d).trim();
+        System.out.println(affichage);
+        System.out.println();
+
+        //Ce assert equals ne peut pas présentement fonctionner
+        //assertEquals(Pion.class, d.getPion(2).getClass());
+        d.checkPromotion(3);
+        assertEquals(Dame.class, d.getPion(2).getClass());
     }
 }

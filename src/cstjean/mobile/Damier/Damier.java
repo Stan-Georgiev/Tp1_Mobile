@@ -68,7 +68,7 @@ public class Damier {
         }
     }
 
-    private void checkPromotion(int position) {
+    public void checkPromotion(int position) {
         Pion p = pions.get(position - 1);
         if (p == null) return;
 
@@ -82,5 +82,4 @@ public class Damier {
             pions.set(position - 1, new Dame(Couleur.Noir));
         }
     }
-
 }
