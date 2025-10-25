@@ -32,7 +32,7 @@ public class FinPartie {
     }
 
     /**
-     * Vérifie s’il ne reste plus de pièce d’une couleur donnée.
+     * Vérifie s’il reste plus de pièce d’une couleur donnée.
      */
     private boolean aucunePiece(Couleur couleur) {
         for (int i = 0; i < damier.getNombrePions(); i++) {
