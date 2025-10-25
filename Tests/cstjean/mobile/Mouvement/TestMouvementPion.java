@@ -52,7 +52,6 @@ public class TestMouvementPion {
         damier[4][4] = 'B'; // même couleur
 
         List<MouvementPion.Position> moves = MouvementPion.getDeplacementsPossibles(5, 3, true, damier);
-
         // Aucune prise ne doit être détectée
         assertTrue(moves.stream().noneMatch(p -> p.ligne == 3 && p.colonne == 5));
     }
@@ -70,7 +69,7 @@ public class TestMouvementPion {
 
     @Test
     public void testToStringPosition() {
-        MouvementPion.Position p = new MouvementPion.Position(2, 5);
+        MouvementPion.Position p = new MouvementPion.Position(2, 5, false);
         assertEquals("(2,5)", p.toString());
     }
 }

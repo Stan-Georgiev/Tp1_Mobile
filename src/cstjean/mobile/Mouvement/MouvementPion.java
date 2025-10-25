@@ -12,9 +12,12 @@ public class MouvementPion {
         public int ligne;
         public int colonne;
 
-        public Position(int ligne, int colonne) {
+        public boolean estPrise;
+
+        public Position(int ligne, int colonne, boolean estPrise) {
             this.ligne = ligne;
             this.colonne = colonne;
+            this.estPrise = estPrise;
         }
 
         @Override
@@ -36,15 +39,33 @@ public class MouvementPion {
         int taille = damier.length;
 
         // Déplacements simples (diagonales avant)
-        ajouterSiVide(moves, damier, ligne + direction, colonne - 1, taille);
-        ajouterSiVide(moves, damier, ligne + direction, colonne + 1, taille);
+        ajouterMouvement(moves, damier, ligne + direction, colonne - 1, taille, -1, direction);
+        ajouterMouvement(moves, damier, ligne + direction, colonne + 1, taille, 1, direction);
 
         return moves;
     }
 
-    private static void ajouterSiVide(List<Position> moves, Object[][] damier, int l, int c, int taille) {
-        if (l >= 0 && l < taille && c >= 0 && c < taille && damier[l][c] == null) {
-            moves.add(new Position(l, c));
+    private static void ajouterMouvement(List<Position> moves, Object[][] damier, int l, int c, int taille, int cote, int direction) {
+        if (l >= 0 && l < taille && c >= 0 && c < taille) {
+            if (damier[l][c] == null) {
+                moves.add(new Position(l, c, false));
+            }
+            else if (damier[l + direction][c + cote] == null){
+                moves.add(new Position(l + direction, c + cote, true));
+            }
+        }
+    }
+    public static void bougerPion(List<Position> moves, Position pos, Object[][] damier, int l, int c){
+        if (moves.contains(pos)) {
+            if (pos.estPrise) {
+                damier[pos.ligne][pos.colonne] = damier[l][c];
+                damier[l][c] = null;
+                damier[l + (pos.ligne > l ? 1 : -1)][c + (pos.colonne > c ? 1 : -1)] = null;
+            }
+            else {
+                damier[pos.ligne][pos.colonne] = damier[l][c];
+                damier[l][c] = null;
+            }
         }
     }
 }

@@ -10,10 +10,12 @@ public class MouvementDame {
     public static class Position {
         public int ligne;
         public int colonne;
+        public boolean estPrise;
 
-        public Position(int ligne, int colonne) {
+        public Position(int ligne, int colonne,  boolean estPrise) {
             this.ligne = ligne;
             this.colonne = colonne;
+            this.estPrise = estPrise;
         }
 
         @Override
@@ -33,17 +35,22 @@ public class MouvementDame {
         int taille = damier.length;
 
         // Déplacements simples (diagonales avant et arrière)
-        ajouterSiVide(moves, damier, ligne + 1, colonne - 1, taille);
-        ajouterSiVide(moves, damier, ligne + 1, colonne + 1, taille);
-        ajouterSiVide(moves, damier, ligne - 1, colonne + 1, taille);
-        ajouterSiVide(moves, damier, ligne - 1, colonne - 1, taille);
+        ajouterMouvement(moves, damier, ligne + 1, colonne - 1, taille, -1, 1);
+        ajouterMouvement(moves, damier, ligne + 1, colonne + 1, taille, 1, 1);
+        ajouterMouvement(moves, damier, ligne - 1, colonne + 1, taille, -1, 1);
+        ajouterMouvement(moves, damier, ligne - 1, colonne - 1, taille, -1, -1);
 
         return moves;
     }
 
-    private static void ajouterSiVide(List<MouvementDame.Position> moves, Object[][] damier, int l, int c, int taille) {
-        if (l >= 0 && l < taille && c >= 0 && c < taille && damier[l][c] == null) {
-            moves.add(new MouvementDame.Position(l, c));
+    private static void ajouterMouvement(List<MouvementDame.Position> moves, Object[][] damier, int l, int c, int taille, int cote, int direction) {
+        if (l >= 0 && l < taille && c >= 0 && c < taille) {
+            if (damier[l][c] == null) {
+                moves.add(new MouvementDame.Position(l, c, false));
+            }
+            else if (damier[l + direction][c + cote] == null){
+                moves.add(new MouvementDame.Position(l + direction, c + cote, true));
+            }
         }
     }
 }

@@ -63,7 +63,7 @@ public class TestDamier extends TestCase {
         System.out.println();
 
         //Ce assert equals ne peut pas présentement fonctionner
-        //assertEquals(Pion.class, d.getPion(2).getClass());
+        assertEquals(Pion.class, d.getPion(2).getClass());
         d.checkPromotion(3);
         assertEquals(Dame.class, d.getPion(2).getClass());
     }
