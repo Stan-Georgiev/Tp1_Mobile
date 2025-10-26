@@ -5,11 +5,10 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class TestMouvementPion {
-
     @Test
     public void testDeplacementSimpleBlanc() {
         Object[][] damier = new Object[10][10];
-        damier[5][3] = 'B';
+        damier[5][3] = 'p';
 
         List<MouvementPion.Position> moves = MouvementPion.getDeplacementsPossibles(5, 3, true, damier);
 
@@ -22,7 +21,7 @@ public class TestMouvementPion {
     @Test
     public void testDeplacementSimpleNoir() {
         Object[][] damier = new Object[10][10];
-        damier[3][4] = 'N';
+        damier[3][4] = 'P';
 
         List<MouvementPion.Position> moves = MouvementPion.getDeplacementsPossibles(3, 4, false, damier);
 
@@ -35,9 +34,9 @@ public class TestMouvementPion {
     @Test
     public void testPasDePriseSiCaseArriereRemplie() {
         Object[][] damier = new Object[10][10];
-        damier[5][3] = 'B';
-        damier[4][4] = 'N';
-        damier[3][5] = 'B'; // case d'atterrissage occupée
+        damier[5][3] = 'P';
+        damier[4][4] = 'p';
+        damier[3][5] = 'P'; // case d'atterrissage occupée
 
         List<MouvementPion.Position> moves = MouvementPion.getDeplacementsPossibles(5, 3, true, damier);
 
@@ -48,10 +47,10 @@ public class TestMouvementPion {
     @Test
     public void testPasDePriseSiPasAdversaire() {
         Object[][] damier = new Object[10][10];
-        damier[5][3] = 'B';
-        damier[4][4] = 'B'; // même couleur
+        damier[5][3] = 'P';
+        damier[4][4] = 'P'; // même couleur
 
-        List<MouvementPion.Position> moves = MouvementPion.getDeplacementsPossibles(5, 3, true, damier);
+        List<MouvementPion.Position> moves = MouvementPion.getDeplacementsPossibles(5, 3, false, damier);
         // Aucune prise ne doit être détectée
         assertTrue(moves.stream().noneMatch(p -> p.ligne == 3 && p.colonne == 5));
     }
@@ -59,7 +58,7 @@ public class TestMouvementPion {
     @Test
     public void testLimiteDuDamier() {
         Object[][] damier = new Object[10][10];
-        damier[0][0] = 'B';
+        damier[0][0] = 'P';
 
         List<MouvementPion.Position> moves = MouvementPion.getDeplacementsPossibles(0, 0, true, damier);
 
@@ -71,5 +70,23 @@ public class TestMouvementPion {
     public void testToStringPosition() {
         MouvementPion.Position p = new MouvementPion.Position(2, 5, false);
         assertEquals("(2,5)", p.toString());
+    }
+
+    @Test
+    public void testBougerPion(){
+        Object[][] damier = new Object[10][10];
+        damier[5][3] = 'P';
+        MouvementPion.Position pos = new MouvementPion.Position(6, 4, false);
+
+        assertEquals('P', damier[5][3]);
+
+        List<MouvementPion.Position> moves = MouvementPion.getDeplacementsPossibles(5, 3, true, damier);
+        MouvementPion.bougerPion(moves, pos, damier, 6, 4);
+
+        for (int i = 0; i < moves.size(); i++) {
+            System.out.println(moves.contains(pos));
+        }
+        assertEquals(null, damier[5][3]);
+        assertEquals('P', damier[pos.ligne][pos.colonne]);
     }
 }

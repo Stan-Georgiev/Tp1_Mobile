@@ -56,14 +56,16 @@ public class MouvementPion {
         }
     }
     public static void bougerPion(List<Position> moves, Position pos, Object[][] damier, int l, int c){
+        String rep = damier[l][c] == null ? null : damier[l][c].toString();
         if (moves.contains(pos)) {
+            System.out.println(rep);
             if (pos.estPrise) {
-                damier[pos.ligne][pos.colonne] = damier[l][c];
+                damier[pos.ligne][pos.colonne] = rep;
                 damier[l][c] = null;
                 damier[l + (pos.ligne > l ? 1 : -1)][c + (pos.colonne > c ? 1 : -1)] = null;
             }
             else {
-                damier[pos.ligne][pos.colonne] = damier[l][c];
+                damier[pos.ligne][pos.colonne] = rep;
                 damier[l][c] = null;
             }
         }
