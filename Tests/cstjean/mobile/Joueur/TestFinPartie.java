@@ -4,8 +4,10 @@ import cstjean.mobile.Damier.Damier;
 import cstjean.mobile.Pion.Couleur;
 import cstjean.mobile.Pion.Pion;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class TestFinPartie extends TestCase {
+    @Test
     public void testAucunePiece(){
         Damier d = new Damier();
         d.initialiser();
@@ -21,6 +23,7 @@ public class TestFinPartie extends TestCase {
         assertTrue(finPartie.aucunePiece(Couleur.Blanc));
         assertTrue(finPartie.aucunePiece(Couleur.Noir));
     }
+    @Test
     public void testAucunDeplacementPossible(){
         Damier d = new Damier();
         d.initialiser();
@@ -36,23 +39,39 @@ public class TestFinPartie extends TestCase {
         //assertTrue(finPartie.aucunDeplacementPossible(Couleur.Blanc));
         assertTrue(!finPartie.aucunDeplacementPossible(Couleur.Noir));
     }
-    public void testGetGagnant(){
+
+    @Test
+    public void testGetGagnant() {
         Damier d = new Damier();
         d.initialiser();
         FinPartie finPartie = new FinPartie(d);
 
+        // Partie en cours → aucun gagnant
         assertEquals("Aucun", finPartie.getGagnant());
 
-        for (int i = 1; i <= d.getNombrePions(); i++){
-            if (d.getPion(i).getCouleur() == Couleur.Blanc) d.ajouterPion(i, null);
+        // Supprimer toutes les pièces blanches → Noir gagne
+        for (int i = 0; i < d.getNombrePions(); i++) {
+            Pion p = d.getPion(i);
+            if (p != null && p.getCouleur() == Couleur.Blanc) {
+                d.ajouterPion(i, null);
+            }
         }
+        finPartie = new FinPartie(d); // recréer FinPartie pour prendre en compte les changements
         assertEquals("Noir", finPartie.getGagnant());
 
+        // Réinitialiser le damier
         d.initialiser();
         finPartie = new FinPartie(d);
-        for (int i = 1; i <= d.getNombrePions(); i++){
-            if (d.getPion(i).getCouleur() == Couleur.Noir)  d.ajouterPion(i, null);
+
+        // Supprimer toutes les pièces noires → Blanc gagne
+        for (int i = 0; i < d.getNombrePions(); i++) {
+            Pion p = d.getPion(i);
+            if (p != null && p.getCouleur() == Couleur.Noir) {
+                d.ajouterPion(i, null);
+            }
         }
+        finPartie = new FinPartie(d); // recréer FinPartie
         assertEquals("Blanc", finPartie.getGagnant());
     }
+
 }
