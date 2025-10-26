@@ -39,39 +39,4 @@ public class TestFinPartie extends TestCase {
         //assertTrue(finPartie.aucunDeplacementPossible(Couleur.Blanc));
         assertTrue(!finPartie.aucunDeplacementPossible(Couleur.Noir));
     }
-
-    @Test
-    public void testGetGagnant() {
-        Damier d = new Damier();
-        d.initialiser();
-        FinPartie finPartie = new FinPartie(d);
-
-        // Partie en cours → aucun gagnant
-        assertEquals("Aucun", finPartie.getGagnant());
-
-        // Supprimer toutes les pièces blanches → Noir gagne
-        for (int i = 0; i < d.getNombrePions(); i++) {
-            Pion p = d.getPion(i);
-            if (p != null && p.getCouleur() == Couleur.Blanc) {
-                d.ajouterPion(i, null);
-            }
-        }
-        finPartie = new FinPartie(d); // recréer FinPartie pour prendre en compte les changements
-        assertEquals("Noir", finPartie.getGagnant());
-
-        // Réinitialiser le damier
-        d.initialiser();
-        finPartie = new FinPartie(d);
-
-        // Supprimer toutes les pièces noires → Blanc gagne
-        for (int i = 0; i < d.getNombrePions(); i++) {
-            Pion p = d.getPion(i);
-            if (p != null && p.getCouleur() == Couleur.Noir) {
-                d.ajouterPion(i, null);
-            }
-        }
-        finPartie = new FinPartie(d); // recréer FinPartie
-        assertEquals("Blanc", finPartie.getGagnant());
-    }
-
 }

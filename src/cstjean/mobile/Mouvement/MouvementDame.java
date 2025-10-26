@@ -80,7 +80,12 @@ public class MouvementDame {
 
     public static void bougerDame(List<MouvementPion.Position> moves, MouvementPion.Position pos, Object[][] damier, int origineL, int origineC) {
         // Vérifie si la position de destination est valide
-        if (!moves.contains(pos)) return;
+        boolean valide = moves.stream().anyMatch(m ->
+                m.ligne == pos.ligne &&
+                        m.colonne == pos.colonne &&
+                        m.estPrise == pos.estPrise
+        );
+        if (!valide) return;
 
         Object pion = damier[origineL][origineC];
         damier[origineL][origineC] = null; // enlève la dame de la case d’origine
