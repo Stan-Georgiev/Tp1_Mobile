@@ -71,22 +71,84 @@ public class TestMouvementPion {
         MouvementPion.Position p = new MouvementPion.Position(2, 5, false);
         assertEquals("(2,5)", p.toString());
     }
-
     @Test
-    public void testBougerPion(){
+    public void testBougerPion() {
         Object[][] damier = new Object[10][10];
         damier[5][3] = 'P';
-        MouvementPion.Position pos = new MouvementPion.Position(6, 4, false);
 
-        assertEquals('P', damier[5][3]);
+        // Get possible moves for the pion
+        List<MouvementPion.Position> moves = MouvementPion.getDeplacementsPossibles(5, 3, false, damier);
 
-        List<MouvementPion.Position> moves = MouvementPion.getDeplacementsPossibles(5, 3, true, damier);
-        MouvementPion.bougerPion(moves, pos, damier, 6, 4);
-
-        for (int i = 0; i < moves.size(); i++) {
-            System.out.println(moves.contains(pos));
+        // Find the move that goes to (6, 4) instead of creating a new Position
+        MouvementPion.Position target = null;
+        for (MouvementPion.Position m : moves) {
+            if (m.ligne == 6 && m.colonne == 4) {
+                target = m;
+                break;
+            }
         }
-        assertEquals(null, damier[5][3]);
-        assertEquals('P', damier[pos.ligne][pos.colonne]);
+
+        // Make sure the move exists
+        assertNotNull("Expected move (6,4) not found", target);
+
+        // Perform the move
+        MouvementPion.bougerPion(moves, target, damier, 5, 3);
+
+        // Debug output
+        System.out.println("Moves: " + moves);
+        System.out.println("Selected: " + target);
+        System.out.println("After move: damier[5][3]=" + damier[5][3] + " damier[6][4]=" + damier[6][4]);
+
+        // Verify the pion moved
+        assertNull("Old position should be empty", damier[5][3]);
+        assertEquals("Pion should move to (6,4)", 'P', damier[6][4]);
+    }
+
+    @Test
+    public void testBougerPionMouvementInvalide() {
+        Object[][] damier = new Object[10][10];
+        damier[5][3] = 'P';
+
+        List<MouvementPion.Position> moves = MouvementPion.getDeplacementsPossibles(5, 3, false, damier);
+
+        // Crée une position qui n’est PAS dans la liste des mouvements
+        MouvementPion.Position falseMove = new MouvementPion.Position(9, 9, false);
+
+        // Appel de bougerPion avec un mouvement invalide — ne doit rien changer
+        MouvementPion.bougerPion(moves, falseMove, damier, 5, 3);
+
+        // Rien n’a bougé
+        assertEquals('P', damier[5][3]);
+        assertNull(damier[9][9]);
+    }
+
+    @Test
+    public void testBougerPionAvecPrise() {
+        Object[][] damier = new Object[10][10];
+        damier[5][3] = 'P'; // noir
+        damier[6][4] = 'p'; // blanc (adversaire à capturer)
+
+        // le noir descend, donc direction = +1
+        List<MouvementPion.Position> moves = MouvementPion.getDeplacementsPossibles(5, 3, false, damier);
+
+        // Chercher la position de prise (7,5)
+        MouvementPion.Position prise = null;
+        for (MouvementPion.Position m : moves) {
+            if (m.ligne == 7 && m.colonne == 5) {
+                prise = m;
+                break;
+            }
+        }
+
+        assertNotNull("Aucune position de prise trouvée", prise);
+        assertTrue("La position doit être une prise", prise.estPrise);
+
+        MouvementPion.bougerPion(moves, prise, damier, 5, 3);
+
+        // Après la prise : le pion noir doit être à (7,5),
+        // l'adversaire (6,4) doit être supprimé, et (5,3) vide.
+        assertNull(damier[5][3]);
+        assertNull(damier[6][4]);
+        assertEquals('P', damier[7][5]);
     }
 }

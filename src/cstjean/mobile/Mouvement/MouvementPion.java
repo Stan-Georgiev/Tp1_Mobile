@@ -55,19 +55,22 @@ public class MouvementPion {
             }
         }
     }
-    public static void bougerPion(List<Position> moves, Position pos, Object[][] damier, int l, int c){
-        String rep = damier[l][c] == null ? null : damier[l][c].toString();
-        if (moves.contains(pos)) {
-            System.out.println(rep);
-            if (pos.estPrise) {
-                damier[pos.ligne][pos.colonne] = rep;
-                damier[l][c] = null;
-                damier[l + (pos.ligne > l ? 1 : -1)][c + (pos.colonne > c ? 1 : -1)] = null;
-            }
-            else {
-                damier[pos.ligne][pos.colonne] = rep;
-                damier[l][c] = null;
-            }
+    public static void bougerPion(List<Position> moves, Position pos, Object[][] damier, int origineL, int origineC) {
+        // Vérifie si la position de destination est valide
+        if (!moves.contains(pos)) return;
+
+        Object pion = damier[origineL][origineC];
+        damier[origineL][origineC] = null; // enlève le pion de la case d’origine
+
+        // Si le mouvement est une prise, on supprime le pion sauté
+        if (pos.estPrise) {
+            int lignePrise = (origineL + pos.ligne) / 2;
+            int colonnePrise = (origineC + pos.colonne) / 2;
+            damier[lignePrise][colonnePrise] = null;
         }
+
+        // Place le pion sur la nouvelle case
+        damier[pos.ligne][pos.colonne] = pion;
     }
+
 }
