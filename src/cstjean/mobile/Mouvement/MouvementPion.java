@@ -72,5 +72,4 @@ public class MouvementPion {
         // Place le pion sur la nouvelle case
         damier[pos.ligne][pos.colonne] = pion;
     }
-
 }
