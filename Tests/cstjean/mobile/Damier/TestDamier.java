@@ -6,15 +6,20 @@ import cstjean.mobile.Pion.Pion;
 import junit.framework.TestCase;
 import org.junit.Assert;
 
-/** La classe de tests qui verifie le fonctionnement de la classe Damier. **/
+/**
+ * Tests unitaires pour la classe {@link Damier}.
+ */
 public class TestDamier extends TestCase {
-    /** Un test qui cree un damier et qui le remplie avec 1 pion. **/
+
+    /**
+     * Test la création d'un damier et l'ajout d'un pion.
+     */
     public void testDamier() {
         Damier d = new Damier();
 
         assertEquals(50, d.getNombrePions());
-        Pion pion1 = new Pion(Couleur.Noir);
 
+        Pion pion1 = new Pion(Couleur.Noir);
         d.ajouterPion(38, pion1);
 
         Assert.assertEquals(Couleur.Noir, pion1.getCouleur());
@@ -25,7 +30,9 @@ public class TestDamier extends TestCase {
         System.out.println();
     }
 
-    /** Un test qui verifie si le damier est initialiser avec 40 pions. **/
+    /**
+     * Test l'initialisation du damier avec 40 pions.
+     */
     public void testInitialiser() {
         Damier d = new Damier();
         d.initialiser();
@@ -40,30 +47,36 @@ public class TestDamier extends TestCase {
         Assert.assertEquals(40, count);
     }
 
-    /** Un test qui verifie l'affichage du damier. **/
+    /**
+     * Test l'affichage du damier.
+     */
     public void testAffichage() {
         Damier d = new Damier();
         d.initialiser();
 
         String affichage = AfficherDamier.generer(d).trim();
-        assertTrue(affichage.contains("P")); // Contient des noirs
-        assertTrue(affichage.contains("p")); // Contient des blancs
+        assertTrue("Doit contenir des pions noirs", affichage.contains("P"));
+        assertTrue("Doit contenir des pions blancs", affichage.contains("p"));
 
         System.out.println(affichage);
         System.out.println();
     }
-    public void testCheckPromotion(){
+
+    /**
+     * Test la promotion d'un pion en dame.
+     */
+    public void testCheckPromotion() {
         Damier d = new Damier();
         d.initialiser();
-
 
         d.ajouterPion(3, new Pion(Couleur.Blanc));
         String affichage = AfficherDamier.generer(d).trim();
         System.out.println(affichage);
         System.out.println();
 
-        //Ce assert equals ne peut pas présentement fonctionner
+        // Vérifie que la promotion fonctionne
         d.checkPromotion(3);
-        assertEquals(Dame.class, d.getPion(2).getClass());
+        assertEquals("Le pion doit être promu en dame",
+                Dame.class, d.getPion(2).getClass());
     }
 }
