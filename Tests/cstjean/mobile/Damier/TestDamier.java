@@ -12,11 +12,10 @@ import org.junit.Assert;
 public class TestDamier extends TestCase {
 
     /**
-     * Test la création d'un damier et l'ajout d'un pion.
+     * Teste la création d'un damier et l'ajout d'un pion.
      */
     public void testDamier() {
         Damier d = new Damier();
-
         assertEquals(50, d.getNombrePions());
 
         Pion pion1 = new Pion(Couleur.Noir);
@@ -26,18 +25,16 @@ public class TestDamier extends TestCase {
         Assert.assertEquals(d.getPion(37), pion1);
 
         String affichage = AfficherDamier.generer(d);
-        System.out.println(affichage);
-        System.out.println();
+        assertNotNull(affichage);
     }
 
     /**
-     * Test l'initialisation du damier avec 40 pions.
+     * Teste l'initialisation du damier avec 40 pions.
      */
     public void testInitialiser() {
         Damier d = new Damier();
         d.initialiser();
 
-        // Vérifie qu'il y a bien 40 pions
         int count = 0;
         for (int i = 0; i < d.getNombrePions(); i++) {
             if (d.getPion(i) != null) {
@@ -48,7 +45,7 @@ public class TestDamier extends TestCase {
     }
 
     /**
-     * Test l'affichage du damier.
+     * Teste l'affichage du damier.
      */
     public void testAffichage() {
         Damier d = new Damier();
@@ -57,26 +54,64 @@ public class TestDamier extends TestCase {
         String affichage = AfficherDamier.generer(d).trim();
         assertTrue("Doit contenir des pions noirs", affichage.contains("P"));
         assertTrue("Doit contenir des pions blancs", affichage.contains("p"));
-
-        System.out.println(affichage);
-        System.out.println();
     }
 
     /**
-     * Test la promotion d'un pion en dame.
+     * Teste la promotion d'un pion blanc en dame.
      */
-    public void testCheckPromotion() {
+    public void testCheckPromotionBlanc() {
         Damier d = new Damier();
         d.initialiser();
 
         d.ajouterPion(3, new Pion(Couleur.Blanc));
-        String affichage = AfficherDamier.generer(d).trim();
-        System.out.println(affichage);
-        System.out.println();
-
-        // Vérifie que la promotion fonctionne
         d.checkPromotion(3);
-        assertEquals("Le pion doit être promu en dame",
-                Dame.class, d.getPion(2).getClass());
+
+        assertEquals(Dame.class, d.getPion(2).getClass());
+        assertEquals(Couleur.Blanc, d.getPion(2).getCouleur());
+    }
+
+    /**
+     * Teste la promotion d'un pion noir en dame.
+     */
+    public void testCheckPromotionNoir() {
+        Damier d = new Damier();
+        d.initialiser();
+
+        d.ajouterPion(48, new Pion(Couleur.Noir));
+        d.checkPromotion(48);
+
+        assertEquals(Dame.class, d.getPion(47).getClass());
+        assertEquals(Couleur.Noir, d.getPion(47).getCouleur());
+    }
+
+    /**
+     * Teste l'historique et l'annulation du dernier déplacement.
+     */
+    public void testHistoriqueEtAnnulerDernierDeplacement() {
+        Damier d = new Damier();
+        Pion p = new Pion(Couleur.Noir);
+
+        d.ajouterPion(10, p);
+        assertFalse("L'historique ne doit pas être vide", d.getHistorique().isEmpty());
+
+        d.annulerDernierDeplacement();
+        assertNull(d.getPion(9));
+    }
+
+    /**
+     * Teste les getters getPion() et getNombrePions().
+     */
+    public void testGetPionEtNombrePions() {
+        Damier d = new Damier();
+        assertEquals(50, d.getNombrePions());
+
+        Pion p1 = new Pion(Couleur.Blanc);
+        Pion p2 = new Pion(Couleur.Noir);
+
+        d.ajouterPion(25, p1);
+        d.ajouterPion(30, p2);
+
+        assertEquals(p1, d.getPion(24));
+        assertEquals(p2, d.getPion(29));
     }
 }
