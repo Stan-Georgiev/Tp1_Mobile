@@ -40,28 +40,4 @@ public class TestPion {
         assertEquals(Couleur.Blanc, pion.getCouleur());
         assertEquals('p', pion.getRepresentation());
     }
-
-    /**
-     * Vérifie la création correcte d’une dame blanche.
-     * La représentation doit être le caractère 'd'.
-     */
-    @Test
-    public void testDameBlanche() {
-        Dame dameBlanche = new Dame(Couleur.Blanc);
-
-        assertEquals(Couleur.Blanc, dameBlanche.getCouleur());
-        assertEquals('d', dameBlanche.getRepresentation());
-    }
-
-    /**
-     * Vérifie la création correcte d’une dame noire.
-     * La représentation doit être le caractère 'D'.
-     */
-    @Test
-    public void testDameNoire() {
-        Dame dameNoire = new Dame(Couleur.Noir);
-
-        assertEquals(Couleur.Noir, dameNoire.getCouleur());
-        assertEquals('D', dameNoire.getRepresentation());
-    }
 }

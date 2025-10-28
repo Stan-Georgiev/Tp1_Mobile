@@ -14,35 +14,19 @@ import org.junit.Test;
 public class TestDame {
 
     /**
-     * Vérifie la création correcte d'une dame blanche.
-     * La couleur doit être {@link Couleur#Blanc} et
-     * la représentation doit être le caractère 'd'.
+     * Vérifie la création d’une dame avec une couleur spécifiée.
+     * La dame noir doit être représenté par 'D' et le blanc par 'd'.
      */
     @Test
-    public void testDameCreationBlanc() {
-        Dame dameBlanc = new Dame(Couleur.Blanc);
+    public void testCreerAvecCouleur() {
+        Dame dameNoire = new Dame(Couleur.Noir);
+        Dame dameBlanche = new Dame(Couleur.Blanc);
 
-        // Vérifie la couleur
-        assertEquals(Couleur.Blanc, dameBlanc.getCouleur());
+        assertEquals(Couleur.Noir, dameNoire.getCouleur());
+        assertEquals('D', dameNoire.getRepresentation());
 
-        // Vérifie la représentation
-        assertEquals('d', dameBlanc.getRepresentation());
-    }
-
-    /**
-     * Vérifie la création correcte d'une dame noire.
-     * La couleur doit être {@link Couleur#Noir} et
-     * la représentation doit être le caractère 'D'.
-     */
-    @Test
-    public void testDameCreationNoir() {
-        Dame dameNoir = new Dame(Couleur.Noir);
-
-        // Vérifie la couleur
-        assertEquals(Couleur.Noir, dameNoir.getCouleur());
-
-        // Vérifie la représentation
-        assertEquals('D', dameNoir.getRepresentation());
+        assertEquals(Couleur.Blanc, dameBlanche.getCouleur());
+        assertEquals('d', dameBlanche.getRepresentation());
     }
 
     /**
