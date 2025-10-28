@@ -56,27 +56,35 @@ public class TestDamier extends TestCase {
         System.out.println(affichage);
         System.out.println();
     }
-    public void testCheckPromotion(){
+    public void testCheckPromotion() {
         Damier d = new Damier();
         d.initialiser();
-        Object[][] damier = new Object[10][10];
-        for (int i = 0; i < d.getNombrePions(); i++) {
-            d.ajouterPion(i+1, null);
-        }
-        d.ajouterPion(8, new Pion(Couleur.Blanc));
-        damier[1][4] = Character.toString(d.getPion(7).getRepresentation());
-        assertEquals(Pion.class, d.getPion(7).getClass());
-        List<MouvementPion.Position> moves =
-                MouvementPion.getDeplacementsPossibles(1, 4, true, damier);
-        MouvementPion.bougerPion(
-                moves,
-                new MouvementPion.Position(0, 5, false),
-                damier, 1, 4);
 
+        // Vider complètement le damier
+        for (int i = 1; i <= d.getNombrePions(); i++) {
+            d.ajouterPion(i, null);
+        }
+
+        // Ajouter un pion blanc à une case avant la ligne de promotion
+        int positionDepart = 8; // ligne juste avant promotion
+        d.ajouterPion(positionDepart, new Pion(Couleur.Blanc));
+
+        // Vérifier qu'il s'agit bien d'un pion avant le déplacement
+        assertEquals(Pion.class, d.getPion(positionDepart - 1).getClass());
+
+        // Simuler le déplacement du pion vers la ligne de promotion (position 3)
+        Pion pion = d.getPion(positionDepart - 1);
+        d.ajouterPion(positionDepart, null); // libère l'ancienne case
+        d.ajouterPion(3, pion); // déplace le pion
+
+        // Vérifier la promotion automatique
         d.checkPromotion(3);
-        if (d.getPion(2) != null)
+
+        // Confirmer qu'il a bien été promu en Dame
         assertEquals(Dame.class, d.getPion(2).getClass());
     }
+
+
     public void testHistorique(){
         Damier d = new Damier();
         d.initialiser();
@@ -97,5 +105,22 @@ public class TestDamier extends TestCase {
         assertEquals(2, historique.size() - 90);
         String rep2 = AfficherDamier.generer(d);
         assertTrue(!rep1.equals(rep2));
+    }
+
+    public void testCheckPromotionNoirEtNull() {
+        Damier d = new Damier();
+        d.initialiser();
+
+        // --- Cas 1 : promotion pour un pion noir ---
+        // On place un pion noir sur une case de promotion
+        d.ajouterPion(50, new Pion(Couleur.Noir));
+        d.checkPromotion(50);
+        assertEquals("Doit devenir une dame noire",
+                Dame.class, d.getPion(49).getClass());
+
+        // --- Cas 2 : pion nul ---
+        d.ajouterPion(10, null); // appelle checkPromotion avec null
+        d.checkPromotion(10); // ne doit rien faire
+        assertNull("La case doit rester vide", d.getPion(9));
     }
 }

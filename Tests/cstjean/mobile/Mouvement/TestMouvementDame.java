@@ -9,13 +9,15 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import junit.framework.TestCase;
 import org.junit.Test;
 
 /**
  * Tests unitaires pour la classe {@link MouvementDame}.
  * Vérifie les déplacements de la dame, captures et mouvements invalides.
  */
-public class TestMouvementDame {
+public class TestMouvementDame extends TestCase {
 
     /** Vérifie la méthode {@code toString()} de la position. */
     @Test

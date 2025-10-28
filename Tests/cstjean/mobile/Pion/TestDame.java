@@ -2,6 +2,8 @@ package cstjean.mobile.Pion;
 
 import static org.junit.Assert.assertEquals;
 
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import org.junit.Test;
 
 /**
@@ -11,7 +13,7 @@ import org.junit.Test;
  * ainsi que leur promotion à partir d’un pion.
  * </p>
  */
-public class TestDame {
+public class TestDame extends TestCase {
 
     /**
      * Vérifie la création d’une dame avec une couleur spécifiée.

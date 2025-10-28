@@ -6,13 +6,14 @@ import static org.junit.Assert.assertTrue;
 
 import cstjean.mobile.Pion.Couleur;
 import cstjean.mobile.Damier.Damier;
+import junit.framework.TestCase;
 import org.junit.Test;
 
 /**
  * Tests unitaires pour la classe {@link GestionTours}.
  * Objectif : 100% de couverture des branches et lignes.
  */
-public class TestGestionTours {
+public class TestGestionTours extends TestCase {
 
     /**
      * Classe factice pour simuler FinPartie sans dépendance réelle.

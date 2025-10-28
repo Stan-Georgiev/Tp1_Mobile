@@ -2,6 +2,7 @@ package cstjean.mobile.Pion;
 
 import static org.junit.Assert.assertEquals;
 
+import junit.framework.TestCase;
 import org.junit.Test;
 
 /**
@@ -11,7 +12,7 @@ import org.junit.Test;
  * avec différentes couleurs et constructeurs.
  * </p>
  */
-public class TestPion {
+public class TestPion extends TestCase {
 
     /**
      * Vérifie la création d’un pion avec une couleur spécifiée.

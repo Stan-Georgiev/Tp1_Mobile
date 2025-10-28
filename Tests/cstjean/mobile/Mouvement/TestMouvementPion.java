@@ -7,13 +7,15 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+
+import junit.framework.TestCase;
 import org.junit.Test;
 
 /**
  * Classe de tests unitaires pour la classe {@link MouvementPion}.
  * Vérifie les déplacements valides, invalides et les prises sur un damier 10x10.
  */
-public class TestMouvementPion {
+public class TestMouvementPion extends TestCase {
 
     /** Teste les déplacements simples pour un pion blanc. */
     @Test
