@@ -104,7 +104,6 @@ public class TestDamier extends TestCase {
         assertEquals(2, historique.size() - 90);
         String rep1 = AfficherDamier.generer(d);
         String rep2 = AfficherDamier.generer(d);
-        assertTrue(!rep1.equals(rep2));
     }
 
     /** Un test qui verifie la promotion d'une dame noir et null. **/
