@@ -1,4 +1,4 @@
-package cstjean.mobile.Pion;
+package cstjean.mobile.pion;
 
 /**
  * Enumération représentant les deux couleurs possibles pour les pièces de jeu.

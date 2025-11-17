@@ -1,4 +1,4 @@
-package cstjean.mobile.Pion;
+package cstjean.mobile.pion;
 
 /** Classe pour un pion d'un jeu de dames. */
 public class Pion {

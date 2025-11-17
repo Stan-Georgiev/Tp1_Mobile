@@ -1,4 +1,4 @@
-package cstjean.mobile.Mouvement;
+package cstjean.mobile.mouvement;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -7,7 +7,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -27,8 +26,8 @@ public class TestMouvementPion extends TestCase {
                 MouvementPion.getDeplacementsPossibles(5, 3, true, damier);
 
         assertEquals(2, moves.size());
-        assertTrue(moves.stream().anyMatch(p -> p.ligne == 4 && p.colonne == 2));
-        assertTrue(moves.stream().anyMatch(p -> p.ligne == 4 && p.colonne == 4));
+        assertTrue(moves.stream().anyMatch(p -> p.getLigne() == 4 && p.getColone() == 2));
+        assertTrue(moves.stream().anyMatch(p -> p.getLigne() == 4 && p.getColone() == 4));
     }
 
     /** Teste les déplacements simples pour un pion noir. */
@@ -41,8 +40,8 @@ public class TestMouvementPion extends TestCase {
                 MouvementPion.getDeplacementsPossibles(3, 4, false, damier);
 
         assertEquals(2, moves.size());
-        assertTrue(moves.stream().anyMatch(p -> p.ligne == 4 && p.colonne == 3));
-        assertTrue(moves.stream().anyMatch(p -> p.ligne == 4 && p.colonne == 5));
+        assertTrue(moves.stream().anyMatch(p -> p.getLigne() == 4 && p.getColone() == 3));
+        assertTrue(moves.stream().anyMatch(p -> p.getLigne() == 4 && p.getColone() == 5));
     }
 
     /** Vérifie qu'aucune prise n'est possible si la case arrière est occupée. */
@@ -56,7 +55,7 @@ public class TestMouvementPion extends TestCase {
         List<MouvementPion.Position> moves =
                 MouvementPion.getDeplacementsPossibles(5, 3, true, damier);
 
-        assertFalse(moves.stream().anyMatch(p -> p.ligne == 3 && p.colonne == 5));
+        assertFalse(moves.stream().anyMatch(p -> p.getLigne() == 3 && p.getColone() == 5));
     }
 
     /** Vérifie qu'aucune prise n'est faite si la pièce adverse n'existe pas. */
@@ -69,7 +68,7 @@ public class TestMouvementPion extends TestCase {
         List<MouvementPion.Position> moves =
                 MouvementPion.getDeplacementsPossibles(5, 3, false, damier);
 
-        assertTrue(moves.stream().noneMatch(p -> p.ligne == 3 && p.colonne == 5));
+        assertTrue(moves.stream().noneMatch(p -> p.getLigne() == 3 && p.getColone() == 5));
     }
 
     /** Vérifie qu'un pion ne peut pas sortir des limites du damier. */
@@ -102,7 +101,7 @@ public class TestMouvementPion extends TestCase {
 
         MouvementPion.Position target = null;
         for (MouvementPion.Position m : moves) {
-            if (m.ligne == 6 && m.colonne == 4) {
+            if (m.getLigne() == 6 && m.getColone() == 4) {
                 target = m;
                 break;
             }
@@ -144,14 +143,14 @@ public class TestMouvementPion extends TestCase {
 
         MouvementPion.Position prise = null;
         for (MouvementPion.Position m : moves) {
-            if (m.ligne == 7 && m.colonne == 5) {
+            if (m.getLigne() == 7 && m.getColone() == 5) {
                 prise = m;
                 break;
             }
         }
 
         assertNotNull(prise);
-        assertTrue(prise.estPrise);
+        assertTrue(prise.isEstPrise());
 
         MouvementPion.bougerPion(moves, prise, damier, 5, 3);
 
@@ -183,6 +182,6 @@ public class TestMouvementPion extends TestCase {
         List<MouvementPion.Position> moves =
                 MouvementPion.getDeplacementsPossibles(5, 3, false, damier);
 
-        assertTrue(moves.stream().anyMatch(p -> p.estPrise && p.ligne == 7 && p.colonne == 5));
+        assertTrue(moves.stream().anyMatch(p -> p.isEstPrise() && p.getLigne() == 7 && p.getColone() == 5));
     }
 }

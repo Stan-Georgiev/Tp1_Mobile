@@ -1,9 +1,8 @@
-package cstjean.mobile.Damier;
+package cstjean.mobile.damier;
 
-import cstjean.mobile.Pion.Pion;
-import cstjean.mobile.Pion.Couleur;
-import cstjean.mobile.Pion.Dame;
-
+import cstjean.mobile.pion.Couleur;
+import cstjean.mobile.pion.Dame;
+import cstjean.mobile.pion.Pion;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -62,12 +61,18 @@ public class Damier {
         }
     }
 
-    /** Retourne le pion à l'index donné (0 à 49). */
+    /** Retourne le pion à l'index donné (0 à 49).
+     *
+     *@param index l'index du pion
+     *
+     *@return retourne le pion a l'index*/
     public Pion getPion(int index) {
         return pions.get(index);
     }
 
-    /** Retourne le nombre de pions dans la liste. */
+    /** Retourne le nombre de pions dans la liste.
+     *
+     *@return retourne le nombre de pions dans la liste*/
     public int getNombrePions() {
         return pions.size();
     }
@@ -92,7 +97,9 @@ public class Damier {
      */
     public void checkPromotion(int position) {
         Pion p = pions.get(position - 1);
-        if (p == null) return;
+        if (p == null) {
+            return;
+        }
 
         if (p.getCouleur() == Couleur.Blanc && position <= 5) {
             pions.set(position - 1, new Dame(Couleur.Blanc));
@@ -103,7 +110,9 @@ public class Damier {
         }
     }
 
-    /** Retourne une copie de l’historique (utile pour debug ou tests). */
+    /** Retourne une copie de l’historique (utile pour debug ou tests).
+     *
+     *@return retourne l'historique */
     public Stack<LinkedList<Pion>> getHistorique() {
         return historique;
     }

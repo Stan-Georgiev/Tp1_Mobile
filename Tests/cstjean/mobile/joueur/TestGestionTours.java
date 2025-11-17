@@ -1,11 +1,11 @@
-package cstjean.mobile.Joueur;
+package cstjean.mobile.joueur;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import cstjean.mobile.Pion.Couleur;
-import cstjean.mobile.Damier.Damier;
+import cstjean.mobile.damier.Damier;
+import cstjean.mobile.pion.Couleur;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -20,8 +20,11 @@ public class TestGestionTours extends TestCase {
      */
     private static class FakeFinPartie extends FinPartie {
 
+        /** boolean qui determine si la partie est fini. */
         private boolean terminee;
+        /** boolean qui determine si il y a pas de deplacement possible. */
         private boolean aucunDeplacement;
+        /** boolean qui determine le gagnant de la partie. */
         private String gagnant = "Aucun";
 
         public FakeFinPartie(Damier d) {
@@ -61,7 +64,14 @@ public class TestGestionTours extends TestCase {
      */
     private static class GestionToursTestable extends GestionTours {
 
-        public FakeFinPartie fakeFin;
+        /**
+         * Classe factice pour injecter un FinPartie personnalisé.
+         */
+        private final FakeFinPartie fakeFin;
+
+        public FakeFinPartie getFakeFin() {
+            return fakeFin;
+        }
 
         public GestionToursTestable(Damier d, FakeFinPartie f) {
             super(d);

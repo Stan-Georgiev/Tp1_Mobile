@@ -1,4 +1,4 @@
-package cstjean.mobile.Pion;
+package cstjean.mobile.pion;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,6 +7,7 @@ import org.junit.Test;
 
 /**
  * Tests unitaires pour la classe {@link Pion}.
+ *
  * <p>
  * Ces tests vérifient la création de pions et de dames
  * avec différentes couleurs et constructeurs.

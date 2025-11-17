@@ -1,10 +1,9 @@
-package cstjean.mobile.Joueur;
+package cstjean.mobile.joueur;
 
-import cstjean.mobile.Damier.Damier;
-import cstjean.mobile.Pion.Pion;
-import cstjean.mobile.Pion.Couleur;
-import cstjean.mobile.Mouvement.MouvementPion;
-
+import cstjean.mobile.damier.Damier;
+import cstjean.mobile.mouvement.MouvementPion;
+import cstjean.mobile.pion.Couleur;
+import cstjean.mobile.pion.Pion;
 import java.util.List;
 
 /**
@@ -15,24 +14,33 @@ import java.util.List;
  */
 public class FinPartie {
 
+    /** L'objet du damier. */
     private final Damier damier;
 
+    /** fonction qui instancie le damier.
+     *
+     * @param damier l'objet damier
+     * */
     public FinPartie(Damier damier) {
         this.damier = damier;
     }
 
     /**
      * Vérifie si la partie est terminée.
+     *
      * @return true si la partie est finie, sinon false.
      */
     public boolean estTerminee() {
-        return aucunePiece(Couleur.Blanc) || aucunePiece(Couleur.Noir)
-                || aucunDeplacementPossible(Couleur.Blanc)
-                || aucunDeplacementPossible(Couleur.Noir);
+        return aucunePiece(Couleur.Blanc) || aucunePiece(Couleur.Noir) || aucunDeplacementPossible(Couleur.Blanc) ||
+                aucunDeplacementPossible(Couleur.Noir);
     }
 
     /**
      * Vérifie s’il reste plus de pièce d’une couleur donnée.
+     *
+     * @param couleur : la couleur de la piece
+     *
+     * @return : retourn true si tout les pieces sont prises
      */
     public boolean aucunePiece(Couleur couleur) {
         for (int i = 0; i < damier.getNombrePions(); i++) {
@@ -46,6 +54,10 @@ public class FinPartie {
 
     /**
      * Vérifie si un joueur ne peut plus bouger aucune pièce.
+     *
+     *@param couleur la couleur de la piece
+     *
+     * @return : true si il y'a pas de deplacement possible
      */
     public boolean aucunDeplacementPossible(Couleur couleur) {
         Object[][] plateau = convertirDamier(damier);
@@ -101,6 +113,7 @@ public class FinPartie {
 
     /**
      * Retourne le gagnant si la partie est terminée.
+     *
      * @return "Blanc", "Noir" ou "Aucun" selon la situation.
      */
     public String getGagnant() {

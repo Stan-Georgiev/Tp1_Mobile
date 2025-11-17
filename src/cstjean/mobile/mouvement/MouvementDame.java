@@ -1,4 +1,4 @@
-package cstjean.mobile.Mouvement;
+package cstjean.mobile.mouvement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +13,34 @@ public class MouvementDame {
      */
     public static class Position {
         /** Ligne sur le damier. */
-        public int ligne;
+        private int ligne;
 
         /** Colonne sur le damier. */
-        public int colonne;
+        private int colonne;
 
         /** Indique si le mouvement implique une prise. */
-        public boolean estPrise;
+        private boolean estPrise;
+
+        /** Retourne la variable estPrise.
+         *
+         * @return la colone dans la grille */
+        public int getColone() {
+            return colonne;
+        }
+
+        /** Retourne la variable estPrise.
+         *
+         * @return la ligne de la grille */
+        public int getLigne() {
+            return ligne;
+        }
+
+        /** Retourne la variable estPrise.
+         *
+         *@return la valeur d'une piece si elle est prise */
+        public boolean isEstPrise() {
+            return estPrise;
+        }
 
         /**
          * Constructeur d'une position.
@@ -65,8 +86,7 @@ public class MouvementDame {
 
         for (int i = 0; i < taille; i++) {
             // Prises potentielles et mouvements diagonaux
-            if (i < Math.min(oppLigneCap, oppColonneCap)
-                    && ligne < oppLigneCap && colonne < oppColonneCap) {
+            if (i < Math.min(oppLigneCap, oppColonneCap) && ligne < oppLigneCap && colonne < oppColonneCap) {
 
                 ajouterMouvement(moves, damier, ligne - i, colonne - i,
                         taille, -i, -i);
@@ -79,8 +99,7 @@ public class MouvementDame {
                     ajouterMouvement(moves, damier, ligne - i, colonne + i,
                             taille, -i, i);
                 }
-            } else if (i < Math.min(ligne, colonne)
-                    && oppLigneCap < ligne && colonne < oppColonneCap) {
+            } else if (i < Math.min(ligne, colonne) && oppLigneCap < ligne && colonne < oppColonneCap) {
 
                 ajouterMouvement(moves, damier, ligne + i, colonne + i,
                         taille, i, i);
@@ -128,9 +147,8 @@ public class MouvementDame {
         if (l >= 0 && l < taille && c >= 0 && c < taille) {
             if (damier[l][c] == null) {
                 moves.add(new MouvementDame.Position(l, c, false));
-            } else if (l + direction >= 0 && l + direction < taille
-                    && c + cote >= 0 && c + cote < taille
-                    && damier[l + direction][c + cote] == null) {
+            } else if (l + direction >= 0 && l + direction < taille && c + cote >= 0 && c + cote < taille &&
+                    damier[l + direction][c + cote] == null) {
                 moves.add(new MouvementDame.Position(l + direction,
                         c + cote, true));
             }
@@ -155,9 +173,8 @@ public class MouvementDame {
 
         // Vérifie si la position de destination est valide
         boolean valide = moves.stream().anyMatch(m ->
-                m.ligne == pos.ligne
-                        && m.colonne == pos.colonne
-                        && m.estPrise == pos.estPrise);
+                m.getLigne() == pos.getLigne() && m.getColone() == pos.getColone() &&
+                        m.isEstPrise() == pos.isEstPrise());
 
         if (!valide) {
             return;
@@ -167,13 +184,13 @@ public class MouvementDame {
         damier[origineL][origineC] = null; // enlève la dame de la case d’origine
 
         // Si le mouvement est une prise, on supprime le pion sauté
-        if (pos.estPrise) {
-            int lignePrise = pos.ligne > origineL ? pos.ligne - 1 : pos.ligne + 1;
-            int colonnePrise = pos.colonne > origineC ? pos.colonne - 1 : pos.colonne + 1;
+        if (pos.isEstPrise()) {
+            int lignePrise = pos.getLigne() > origineL ? pos.getLigne() - 1 : pos.getLigne() + 1;
+            int colonnePrise = pos.getColone() > origineC ? pos.getColone() - 1 : pos.getColone() + 1;
             damier[lignePrise][colonnePrise] = null;
         }
 
         // Place la dame sur la nouvelle case
-        damier[pos.ligne][pos.colonne] = pion;
+        damier[pos.getLigne()][pos.getColone()] = pion;
     }
 }

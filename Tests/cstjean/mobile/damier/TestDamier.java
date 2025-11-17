@@ -1,14 +1,12 @@
-package cstjean.mobile.Damier;
+package cstjean.mobile.damier;
 
-import cstjean.mobile.Mouvement.MouvementPion;
-import cstjean.mobile.Pion.Couleur;
-import cstjean.mobile.Pion.Dame;
-import cstjean.mobile.Pion.Pion;
-import junit.framework.TestCase;
-import org.junit.Assert;
-
+import cstjean.mobile.pion.Couleur;
+import cstjean.mobile.pion.Dame;
+import cstjean.mobile.pion.Pion;
 import java.util.LinkedList;
 import java.util.List;
+import junit.framework.TestCase;
+import org.junit.Assert;
 
 /** La classe de tests qui verifie le fonctionnement de la classe Damier. **/
 public class TestDamier extends TestCase {
@@ -56,6 +54,8 @@ public class TestDamier extends TestCase {
         System.out.println(affichage);
         System.out.println();
     }
+
+    /** Un test qui verifie la promotion d'une piece. **/
     public void testCheckPromotion() {
         Damier d = new Damier();
         d.initialiser();
@@ -84,29 +84,30 @@ public class TestDamier extends TestCase {
         assertEquals(Dame.class, d.getPion(2).getClass());
     }
 
-
-    public void testHistorique(){
+    /** Un test qui verifie l'historique. **/
+    public void testHistorique() {
         Damier d = new Damier();
         d.initialiser();
         for (int i = 0; i < d.getNombrePions(); i++) {
-            d.ajouterPion(i+1, null);
+            d.ajouterPion(i + 1, null);
         }
         List<LinkedList<Pion>> historique = d.getHistorique();
         // -90 pour ignorer les actions de set le board up et d'enlever tous les pions
-        assertEquals(0,  historique.size() - 90);
+        assertEquals(0, historique.size() - 90);
 
         d.ajouterPion(8, new Pion(Couleur.Blanc));
         d.ajouterPion(22, new Pion(Couleur.Noir));
         d.ajouterPion(44, new Pion(Couleur.Noir));
-        String rep1 = AfficherDamier.generer(d);
 
         assertEquals(3, historique.size() - 90);
         d.annulerDernierDeplacement();
         assertEquals(2, historique.size() - 90);
+        String rep1 = AfficherDamier.generer(d);
         String rep2 = AfficherDamier.generer(d);
         assertTrue(!rep1.equals(rep2));
     }
 
+    /** Un test qui verifie la promotion d'une dame noir et null. **/
     public void testCheckPromotionNoirEtNull() {
         Damier d = new Damier();
         d.initialiser();

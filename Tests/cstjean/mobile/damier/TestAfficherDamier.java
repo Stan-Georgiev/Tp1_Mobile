@@ -1,4 +1,4 @@
-package cstjean.mobile.Damier;
+package cstjean.mobile.damier;
 
 import junit.framework.TestCase;
 
@@ -7,6 +7,9 @@ import junit.framework.TestCase;
  */
 public class TestAfficherDamier extends TestCase {
 
+    /**
+     * instaniation de affierDamier {@link AfficherDamier}.
+     */
     private final AfficherDamier afficherDamier = new AfficherDamier();
 
     /**

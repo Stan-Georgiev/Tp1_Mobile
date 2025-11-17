@@ -1,4 +1,4 @@
-package cstjean.mobile.Mouvement;
+package cstjean.mobile.mouvement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +13,34 @@ public class MouvementPion {
      */
     public static class Position {
         /** Ligne sur le damier. */
-        public int ligne;
+        private int ligne;
 
         /** Colonne sur le damier. */
-        public int colonne;
+        private int colonne;
 
         /** Indique si le mouvement implique une prise. */
-        public boolean estPrise;
+        private boolean estPrise;
 
+        /** Retourne la variable estPrise.
+         *
+         * @return la colone dans la grille */
+        public int getColone() {
+            return colonne;
+        }
+
+        /** Retourne la variable estPrise.
+         *
+         * @return la ligne de la grille */
+        public int getLigne() {
+            return ligne;
+        }
+
+        /** Retourne la variable estPrise.
+         *
+         *@return la valeur d'une piece si elle est prise */
+        public boolean isEstPrise() {
+            return estPrise;
+        }
         /**
          * Constructeur d'une position.
          *
@@ -28,6 +48,7 @@ public class MouvementPion {
          * @param colonne la colonne du pion
          * @param estPrise indique si le mouvement est une prise
          */
+
         public Position(int ligne, int colonne, boolean estPrise) {
             this.ligne = ligne;
             this.colonne = colonne;
@@ -87,9 +108,8 @@ public class MouvementPion {
         if (l >= 0 && l < taille && c >= 0 && c < taille) {
             if (damier[l][c] == null) {
                 moves.add(new Position(l, c, false));
-            } else if (l + direction >= 0 && l + direction < taille
-                    && c + cote >= 0 && c + cote < taille
-                    && damier[l + direction][c + cote] == null) {
+            } else if (l + direction >= 0 && l + direction < taille && c + cote >= 0 && c + cote < taille &&
+                    damier[l + direction][c + cote] == null) {
                 moves.add(new Position(l + direction, c + cote, true));
             }
         }

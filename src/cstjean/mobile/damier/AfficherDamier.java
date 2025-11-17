@@ -1,6 +1,6 @@
-package cstjean.mobile.Damier;
+package cstjean.mobile.damier;
 
-import cstjean.mobile.Pion.Pion;
+import cstjean.mobile.pion.Pion;
 
 /** La classe de tests qui verifie le fonctionnement de la classe Damier. **/
 public class AfficherDamier {

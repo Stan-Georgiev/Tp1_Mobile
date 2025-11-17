@@ -1,13 +1,11 @@
-package cstjean.mobile.Pion;
-
-import static org.junit.Assert.assertEquals;
+package cstjean.mobile.pion;
 
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import org.junit.Test;
 
 /**
  * Classe de tests unitaires pour la classe {@link Dame}.
+ *
  * <p>
  * Ces tests vérifient la création correcte des dames (blanches et noires)
  * ainsi que leur promotion à partir d’un pion.
@@ -36,7 +34,6 @@ public class TestDame extends TestCase {
      * La dame résultante doit conserver la même couleur
      * et avoir la bonne représentation.
      */
-    @Test
     public void testPromotionFromPion() {
         Pion p = new Pion(Couleur.Blanc);
 

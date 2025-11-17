@@ -1,4 +1,4 @@
-package cstjean.mobile.Mouvement;
+package cstjean.mobile.mouvement;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -7,9 +7,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.List;
 import java.util.ArrayList;
-
+import java.util.List;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -37,10 +36,10 @@ public class TestMouvementDame extends TestCase {
         assertFalse(moves.isEmpty());
 
         // Vérifie au moins une diagonale valide
-        boolean diag1 = moves.stream().anyMatch(p -> p.ligne == 4 && p.colonne == 4);
-        boolean diag2 = moves.stream().anyMatch(p -> p.ligne == 4 && p.colonne == 6);
-        boolean diag3 = moves.stream().anyMatch(p -> p.ligne == 6 && p.colonne == 4);
-        boolean diag4 = moves.stream().anyMatch(p -> p.ligne == 6 && p.colonne == 6);
+        boolean diag1 = moves.stream().anyMatch(p -> p.getLigne() == 4 && p.getColone() == 4);
+        boolean diag2 = moves.stream().anyMatch(p -> p.getLigne() == 4 && p.getColone() == 6);
+        boolean diag3 = moves.stream().anyMatch(p -> p.getLigne() == 6 && p.getColone() == 4);
+        boolean diag4 = moves.stream().anyMatch(p -> p.getLigne() == 6 && p.getColone() == 6);
         assertTrue(diag1 || diag2 || diag3 || diag4);
     }
 
@@ -53,7 +52,7 @@ public class TestMouvementDame extends TestCase {
         damier[2][2] = null;
 
         List<MouvementDame.Position> moves = MouvementDame.getDeplacementsPossibles(4, 4, damier);
-        boolean prise = moves.stream().anyMatch(p -> p.estPrise && p.ligne == 2 && p.colonne == 2);
+        boolean prise = moves.stream().anyMatch(p -> p.isEstPrise() && p.getLigne() == 2 && p.getColone() == 2);
         assertTrue("Une prise devrait être possible", prise);
     }
 
@@ -77,7 +76,7 @@ public class TestMouvementDame extends TestCase {
         List<MouvementDame.Position> moves = MouvementDame.getDeplacementsPossibles(0, 0, damier);
         assertNotNull(moves);
 
-        boolean possible = moves.stream().anyMatch(p -> p.ligne == 1 && p.colonne == 1);
+        boolean possible = moves.stream().anyMatch(p -> p.getLigne() == 1 && p.getColone() == 1);
         assertTrue(possible);
     }
 
@@ -132,12 +131,12 @@ public class TestMouvementDame extends TestCase {
         // Case vide
         callAjouterMouvement(moves, damier, 5, 5, 10, 1, 1);
         assertFalse(moves.isEmpty());
-        assertFalse(moves.get(0).estPrise);
+        assertFalse(moves.get(0).isEstPrise());
 
         // Case avec pion + case suivante vide
         damier[4][4] = 'D';
         callAjouterMouvement(moves, damier, 4, 4, 10, 1, 1);
-        assertTrue(moves.stream().anyMatch(p -> p.estPrise));
+        assertTrue(moves.stream().anyMatch(p -> p.isEstPrise()));
     }
 
     /** Vérifie qu'un mouvement hors du damier n'est pas ajouté. */

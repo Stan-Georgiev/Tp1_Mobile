@@ -1,10 +1,11 @@
-package cstjean.mobile.Joueur;
+package cstjean.mobile.joueur;
 
-import cstjean.mobile.Pion.Couleur;
-import cstjean.mobile.Damier.Damier;
+import cstjean.mobile.damier.Damier;
+import cstjean.mobile.pion.Couleur;
 
 /**
  * Classe responsable de la gestion des tours de jeu.
+ *
  * <p>
  * Elle alterne les joueurs et vérifie si la partie est terminée
  * après chaque tour.
@@ -43,6 +44,7 @@ public class GestionTours {
 
     /**
      * Passe au joueur suivant.
+     *
      * <p>
      * Si la partie est terminée, aucun changement de joueur n’est effectué.
      * </p>
@@ -54,8 +56,7 @@ public class GestionTours {
             return;
         }
 
-        joueurActuel = (joueurActuel == Couleur.Blanc)
-                ? Couleur.Noir
+        joueurActuel = (joueurActuel == Couleur.Blanc) ? Couleur.Noir
                 : Couleur.Blanc;
 
         // Vérifie si le nouveau joueur peut jouer
@@ -71,6 +72,7 @@ public class GestionTours {
 
     /**
      * Réinitialise la gestion des tours.
+     *
      * <p>
      * Utile lorsqu’une nouvelle partie commence.
      * </p>

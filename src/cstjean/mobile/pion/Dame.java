@@ -1,4 +1,4 @@
-package cstjean.mobile.Pion;
+package cstjean.mobile.pion;
 
 /** Classe représentant une Dame (reine) dans un jeu de dames. */
 public class Dame extends Pion {
